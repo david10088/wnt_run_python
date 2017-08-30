@@ -1,0 +1,21 @@
+$def with (key,token,date)
+<html>
+    <head><title>Poem Maker Pro</title></head>
+    <body>
+        <form method="post" action="http://upload.qiniu.com/" enctype="multipart/form-data">
+            <p>用户ID<input type="text" name="x:user_id" value= ''></p>
+            <p>里    程<input type="text" name="x:lenth" value= ''></p>
+            <p>用    时<input type="text" name="x:hour" value= '0' style="width:40px;">时
+                  <input type="text" name="x:minute" value= '0' style="width:40px;">分
+                  <input type="text" name="x:second" value= '0' style="width:40px;">秒
+            </p>
+            <p>截图上传
+            <input name="key" type="hidden" value=$key>
+            <input name="x:date" type="hidden" value=$date>
+            <input name="token" type="hidden" value=$token>
+            <input name="file" type="file" />
+            </p>
+            <input type="submit">
+        </form>
+    </body>
+</html>

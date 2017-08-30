@@ -1,0 +1,21 @@
+$def with (data)
+
+<table border="1" style = "margin:auto; ">
+        <tr>
+            <th style="width:40px;">ID</th>
+            <th style="width:50px;">昵称</th>
+
+            <th>余额/元</th>
+            <th>总里程/公里</th>
+            <th>次数</th>
+        </tr>
+    $for k in data:
+        <tr>
+            <td align='center'>$k[0]</td>
+            <td align='center'>$k[1]</td>
+
+            <td align='right'>$k[3]</td>
+            <td align='right'>$k[4]</td>
+            <td align='right'>$(k[5]-1)</td>
+        </tr>
+</table>
