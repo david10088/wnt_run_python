@@ -8,6 +8,7 @@ import web
 import pymysql
 import time
 import base64
+import config as c
 from qiniu import Auth, put_file, etag, urlsafe_base64_encode
 import qiniu.config
 render = web.template.render('templates/')
@@ -26,7 +27,7 @@ app= web.application(urls,globals())
 
 
 def conSQL():
-    conn = pymysql.connect(host='localhost', user='root', passwd='123456', db='db_run', port=3306, charset='utf8')
+    conn = pymysql.connect(host='localhost', user=c.mysql_user, passwd=c.mysql_pass, db='db_run', port=3306, charset='utf8')
 
     return conn
 
@@ -75,18 +76,17 @@ class refer:
             print('11')
 
         # 需要填写你的 Access Key 和 Secret Key
-        access_key = 'ZRlg9zh_KoUDJy6VTXhUkOnUMyvuXCMmPgIdxEMM'
-        secret_key = '0tZQdt65E765j6z3wM1yb1z0ZZm9YX2KHbCf1oOV'
+        access_key = c.access_key
+        secret_key = c.secret_key
         # 构建鉴权对象
         q = Auth(access_key, secret_key)
         # 要上传的空间
-        bucket_name = 'wnt-run'
+        bucket_name = c.bucket_name
         # 上传到七牛后保存的文件名
         date = int(time.time())
         key = str(int(time.time())) + '.png';
         # 生成上传 Token，可以指定过期时间等
         token = q.upload_token(bucket_name, key, 3600, {'returnUrl':'http://127.0.0.1:8080/refer', 'returnBody': '{"user_id": $(x:user_id),"hour": $(x:hour),"minute": $(x:minute),"second": $(x:second), "key": $(key),"lenth":$(x:lenth),"date":$(x:date)}'})
-        bucket_name = 'wnt-run'
         return render.refer(key,token,date)
 
     def POST(self, name):
